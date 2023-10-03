@@ -7,14 +7,14 @@ class BlogModel {
     return BlogModel(
       id: json['id'],
       title: json['title'],
-      img_url: json['img_url'],
+      img_url: json['image_url'],
     );
   }
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['id'] = id;
     data['title'] = title;
-    data['img_url'] = img_url;
+    data['image_url'] = img_url;
     return data;
   }
 }

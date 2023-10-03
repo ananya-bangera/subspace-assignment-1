@@ -17,6 +17,7 @@ class BlogFetchService {
       print(response.body);
       final parsed =
           await jsonDecode(response.body)["blogs"].cast<Map<String, dynamic>>();
+      print(parsed);
       List<BlogModel> blogModelList =
           parsed.map<BlogModel>((json) => BlogModel.fromJson(json)).toList();
       return blogModelList;

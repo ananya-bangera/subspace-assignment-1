@@ -7,7 +7,5 @@ class InitialBindings implements Bindings {
   @override
   void dependencies() {
     Get.lazyPut(() => BlogListController());
-    // BlogListController blogListController = Get.find();
-    // blogListController.fetchBlogs();
   }
 }

@@ -1,4 +1,5 @@
 import 'package:blog_naut/blogs/services/blog_fetch_service.dart';
+import 'package:blog_naut/blogs/widgets/blog_card.dart';
 import 'package:blog_naut/common/subspace_store.dart';
 import 'package:blog_naut/controllers/blog_list_controller.dart';
 import 'package:blog_naut/utils/theme.dart';
@@ -54,19 +55,13 @@ class _BlogsPageState extends State<BlogsPage> {
                   ),
                 ],
               ),
-              // GestureDetector(
-              //   onTap: () {
-              //     print(blogsListController.listOfBlogs);
-              //   },
-              //   child: Text("Get Blogs"),
-              // ),
               Expanded(
                   child: FutureBuilder<List<BlogModel>>(
                 future: blogFetchService.fetchBlogs(),
                 builder: (context, snapshot) {
                   if (snapshot.hasData) {
                     final List<BlogModel>? posts = snapshot.data;
-                    print("***********************" + posts.toString());
+
                     return ListView.builder(
                         physics: const BouncingScrollPhysics(),
                         padding: EdgeInsets.only(top: 40, left: 0, right: 0),
@@ -79,7 +74,7 @@ class _BlogsPageState extends State<BlogsPage> {
                             child: SlideAnimation(
                               horizontalOffset: 80,
                               child: FadeInAnimation(
-                                child: Text(posts[index].title ?? ""),
+                                child: BlogCard(posts[index]),
                               ),
                             ),
                           );
