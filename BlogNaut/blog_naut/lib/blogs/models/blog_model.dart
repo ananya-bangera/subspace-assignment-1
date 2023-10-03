@@ -2,6 +2,7 @@ class BlogModel {
   String? id;
   String? title;
   String? img_url;
+
   BlogModel({this.id, this.title, this.img_url});
   factory BlogModel.fromJson(Map<String, dynamic> json) {
     return BlogModel(

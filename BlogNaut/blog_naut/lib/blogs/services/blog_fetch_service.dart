@@ -1,8 +1,10 @@
 import 'dart:async';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../models/blog_model.dart';
+import 'package:get/get.dart';
 
 class BlogFetchService {
   Future<List<BlogModel>> fetchBlogs() async {
@@ -15,9 +17,11 @@ class BlogFetchService {
         'x-hasura-admin-secret': adminSecret,
       });
       print(response.body);
+      print(
+          "*************************************************@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
       final parsed =
           await jsonDecode(response.body)["blogs"].cast<Map<String, dynamic>>();
-      print(parsed);
+
       List<BlogModel> blogModelList =
           parsed.map<BlogModel>((json) => BlogModel.fromJson(json)).toList();
       return blogModelList;

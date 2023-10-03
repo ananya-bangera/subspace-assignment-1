@@ -20,11 +20,6 @@ class _BlogsPageState extends State<BlogsPage> {
   SubspaceStore store = SubspaceStore();
   final BlogFetchService blogFetchService = BlogFetchService();
 
-  // @override
-  // void initState() {
-  //   blogsListController.fetchBlogs();
-  // }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -39,7 +34,7 @@ class _BlogsPageState extends State<BlogsPage> {
                   Container(
                     alignment: Alignment.centerLeft,
                     margin: EdgeInsets.only(top: 10),
-                    child: Text("Bill History",
+                    child: Text("Catalog of Blogs",
                         style: SubspaceTheme.titleText(
                             size: SubspaceTheme.getMobileWidth(context) / 11,
                             color: SubspaceTheme.darkishGrey,
@@ -47,7 +42,7 @@ class _BlogsPageState extends State<BlogsPage> {
                   ),
                   Container(
                     alignment: Alignment.centerLeft,
-                    child: Text("View all your Decentralized bills instantly",
+                    child: Text("Explore our curated selection of blog posts",
                         style: SubspaceTheme.subtitleText(
                             size: SubspaceTheme.getMobileWidth(context) / 27,
                             color: SubspaceTheme.nearlyGrey,

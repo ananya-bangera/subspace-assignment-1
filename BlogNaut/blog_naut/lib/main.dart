@@ -30,6 +30,7 @@ class _MyAppState extends State<MyApp> {
   Future<void> switchPage() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     final String? session = prefs.getString("session");
+    print(session);
     if (session == null) {
       home = Login();
     } else {

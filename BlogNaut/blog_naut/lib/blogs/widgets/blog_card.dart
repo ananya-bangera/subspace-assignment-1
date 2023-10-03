@@ -6,6 +6,9 @@ import 'package:blog_naut/home/home.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:blog_naut/utils/theme.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:zoom_tap_animation/zoom_tap_animation.dart';
+import 'package:like_button/like_button.dart';
 
 class BlogCard extends StatefulWidget {
   BlogCard(this.post, {Key? key}) : super(key: key);
@@ -24,6 +27,10 @@ class _BlogCardState extends State<BlogCard> {
         margin: const EdgeInsets.only(bottom: 20),
         padding: const EdgeInsets.all(10.0),
         decoration: BoxDecoration(
+            image: DecorationImage(
+              image: NetworkImage(widget.post.img_url ?? ""),
+              fit: BoxFit.fill,
+            ),
             borderRadius: BorderRadius.circular(50),
             border: Border.all(
               color: SubspaceTheme.darkishGrey.withOpacity(0.3),
@@ -38,10 +45,10 @@ class _BlogCardState extends State<BlogCard> {
                     width: SubspaceTheme.getMobileWidth(context) / 2.5,
                     height: SubspaceTheme.getMobileHeight(context) / 8,
                     decoration: BoxDecoration(
-                        image: DecorationImage(
-                          image: NetworkImage(widget.post.img_url ?? ""),
-                          fit: BoxFit.fill,
-                        ),
+                        // image: DecorationImage(
+                        //   image: NetworkImage(widget.post.img_url ?? ""),
+                        //   fit: BoxFit.fill,
+                        // ),
                         borderRadius: BorderRadius.circular(50),
                         border: Border.all(
                           color: SubspaceTheme.darkishGrey.withOpacity(0.3),
@@ -51,17 +58,29 @@ class _BlogCardState extends State<BlogCard> {
                 // ),
                 GestureDetector(
                   onTap: () {
-                    print("hello");
-                    blogListController.addBlogToFav(
-                        widget.post.id, widget.post);
+                    blogListController.likedBlogsMap[widget.post.id] != null
+                        ? blogListController.removeBlogFromFav(widget.post.id)
+                        : blogListController.addBlogToFav(
+                            widget.post.id, widget.post);
                   },
                   child: Container(
                     margin: EdgeInsets.all(20),
                     child: GetBuilder<BlogListController>(
                       builder: (_) {
-                        return blogListController
+                        // bool IsLiked = blogListController
+                        //             .likedBlogsMap[widget.post.id ?? ""] ==
+                        //         null
+                        //     ? false
+                        //     : blogListController
+                        //         .likedBlogsMap[widget.post.id ?? ""];
+                        // print(IsLiked);
+                        // return LikeButton(
+                        //   isLiked: IsLiked,
+                        // );
+
+                        return (blogListController
                                     .likedBlogsMap[widget.post.id] ==
-                                null
+                                null)
                             ? Icon(CupertinoIcons.heart)
                             : Icon(CupertinoIcons.heart_fill,
                                 color: SubspaceTheme.iconColorRed);
@@ -80,7 +99,7 @@ class _BlogCardState extends State<BlogCard> {
                     " . . . ",
                 style: SubspaceTheme.subtitleText(
                     size: SubspaceTheme.getMobileWidth(context) / 27,
-                    color: SubspaceTheme.nearlyGrey,
+                    color: SubspaceTheme.backGroundColor,
                     weight: FontWeight.w500))
           ],
         ));

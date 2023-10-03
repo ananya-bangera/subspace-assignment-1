@@ -45,6 +45,8 @@ dependencies:
   flutter_staggered_animations:
   http:
   get:
+  zoom_tap_animation:
+  like_button:
 
 dev_dependencies:
   flutter_test:
