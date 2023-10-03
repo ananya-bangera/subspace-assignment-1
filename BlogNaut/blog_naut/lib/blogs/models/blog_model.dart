@@ -1,13 +1,20 @@
 class BlogModel {
-  String id;
-  String title;
-  String img_url;
-  BlogModel({required this.id, required this.title, required this.img_url});
+  String? id;
+  String? title;
+  String? img_url;
+  BlogModel({this.id, this.title, this.img_url});
   factory BlogModel.fromJson(Map<String, dynamic> json) {
     return BlogModel(
-      id: json['id'] as String,
-      title: json['title'] as String,
-      img_url: json['url'] as String,
+      id: json['id'],
+      title: json['title'],
+      img_url: json['img_url'],
     );
+  }
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['title'] = title;
+    data['img_url'] = img_url;
+    return data;
   }
 }

@@ -1,12 +1,12 @@
+import 'package:blog_naut/blogs/services/blog_fetch_service.dart';
 import 'package:blog_naut/common/subspace_store.dart';
+import 'package:blog_naut/controllers/blog_list_controller.dart';
 import 'package:blog_naut/utils/theme.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
 import 'models/blog_model.dart';
-import 'dart:async';
-import 'dart:convert';
+import 'package:get/get.dart';
 
 class BlogsPage extends StatefulWidget {
   const BlogsPage({Key? key}) : super(key: key);
@@ -17,22 +17,12 @@ class BlogsPage extends StatefulWidget {
 
 class _BlogsPageState extends State<BlogsPage> {
   SubspaceStore store = SubspaceStore();
-  Future<List<BlogModel>> fetchBlogs() async {
-    final String url = 'https://intent-kit-16.hasura.app/api/rest/blogs';
-    final String adminSecret =
-        '32qR4KmXOIpsGPQKMqEJHGJS27G5s7HdSKO3gdtQd2kv5e852SiYwWNfxkZOBuQ6';
+  final BlogFetchService blogFetchService = BlogFetchService();
 
-    try {
-      final response = await http.get(Uri.parse(url), headers: {
-        'x-hasura-admin-secret': adminSecret,
-      });
-      final parsed = jsonDecode(response.body).cast<Map<String, dynamic>>();
-      return parsed.map<BlogModel>((json) => BlogModel.fromJson(json)).toList();
-    } catch (e) {
-      // Handle any errors that occurred during the request
-      return [];
-    }
-  }
+  // @override
+  // void initState() {
+  //   blogsListController.fetchBlogs();
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -64,25 +54,43 @@ class _BlogsPageState extends State<BlogsPage> {
                   ),
                 ],
               ),
+              // GestureDetector(
+              //   onTap: () {
+              //     print(blogsListController.listOfBlogs);
+              //   },
+              //   child: Text("Get Blogs"),
+              // ),
               Expanded(
-                child: ListView.builder(
-                    physics: const BouncingScrollPhysics(),
-                    padding: EdgeInsets.only(top: 40, left: 0, right: 0),
-                    itemCount: 6,
-                    shrinkWrap: true,
-                    itemBuilder: (BuildContext context, int index) {
-                      return AnimationConfiguration.staggeredList(
-                        position: index,
-                        duration: const Duration(milliseconds: 500),
-                        child: SlideAnimation(
-                          horizontalOffset: 80,
-                          child: FadeInAnimation(
-                            child: Text("Style"),
-                          ),
-                        ),
-                      );
-                    }),
-              ),
+                  child: FutureBuilder<List<BlogModel>>(
+                future: blogFetchService.fetchBlogs(),
+                builder: (context, snapshot) {
+                  if (snapshot.hasData) {
+                    final List<BlogModel>? posts = snapshot.data;
+                    print("***********************" + posts.toString());
+                    return ListView.builder(
+                        physics: const BouncingScrollPhysics(),
+                        padding: EdgeInsets.only(top: 40, left: 0, right: 0),
+                        itemCount: posts!.length,
+                        shrinkWrap: true,
+                        itemBuilder: (BuildContext context, int index) {
+                          return AnimationConfiguration.staggeredList(
+                            position: index,
+                            duration: const Duration(milliseconds: 500),
+                            child: SlideAnimation(
+                              horizontalOffset: 80,
+                              child: FadeInAnimation(
+                                child: Text(posts[index].title ?? ""),
+                              ),
+                            ),
+                          );
+                        });
+                  } else {
+                    return Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  }
+                },
+              )),
             ],
           ),
         ),
