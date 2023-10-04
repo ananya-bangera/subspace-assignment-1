@@ -57,33 +57,26 @@ class _BlogCardState extends State<BlogCard> {
                 //   width: 5,
                 // ),
                 GestureDetector(
-                  onTap: () {
-                    blogListController.likedBlogsMap[widget.post.id] != null
-                        ? blogListController.removeBlogFromFav(widget.post.id)
-                        : blogListController.addBlogToFav(
-                            widget.post.id, widget.post);
-                  },
+                  onTap: () {},
                   child: Container(
                     margin: EdgeInsets.all(20),
                     child: GetBuilder<BlogListController>(
                       builder: (_) {
-                        // bool IsLiked = blogListController
-                        //             .likedBlogsMap[widget.post.id ?? ""] ==
-                        //         null
-                        //     ? false
-                        //     : blogListController
-                        //         .likedBlogsMap[widget.post.id ?? ""];
-                        // print(IsLiked);
-                        // return LikeButton(
-                        //   isLiked: IsLiked,
-                        // );
-
-                        return (blogListController
-                                    .likedBlogsMap[widget.post.id] ==
-                                null)
-                            ? Icon(CupertinoIcons.heart)
-                            : Icon(CupertinoIcons.heart_fill,
-                                color: SubspaceTheme.iconColorRed);
+                        return LikeButton(
+                            onTap: (_) {
+                              blogListController
+                                          .likedBlogsMap[widget.post.id] !=
+                                      null
+                                  ? blogListController.removeBlogFromFav(
+                                      widget.post.id, widget.post)
+                                  : blogListController.addBlogToFav(
+                                      widget.post.id, widget.post);
+                              return blogListController.isLiked(widget.post.id);
+                            },
+                            isLiked: (widget.post.is_liked ?? false) ||
+                                !(blogListController
+                                        .likedBlogsMap[widget.post.id] ==
+                                    null));
                       },
                     ),
                   ),
