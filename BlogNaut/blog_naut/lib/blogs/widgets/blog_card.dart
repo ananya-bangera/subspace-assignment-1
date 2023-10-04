@@ -10,6 +10,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:zoom_tap_animation/zoom_tap_animation.dart';
 import 'package:like_button/like_button.dart';
 
+import '../layouts/view_blog_page.dart';
+
 class BlogCard extends StatefulWidget {
   BlogCard(this.post, {Key? key}) : super(key: key);
   BlogModel post;
@@ -24,7 +26,9 @@ class _BlogCardState extends State<BlogCard> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: Get.to(),
+      onTap: () {
+        Get.to(BlogPage(widget.post));
+      },
       child: Container(
         height: SubspaceTheme.getMobileHeight(context) / 4.5,
         decoration: BoxDecoration(

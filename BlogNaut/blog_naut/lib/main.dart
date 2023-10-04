@@ -9,7 +9,7 @@ import 'home/home.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatefulWidget {
@@ -20,22 +20,28 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  Widget home = Scaffold();
+  Widget home = const Scaffold();
+
   @override
   void initState() {
     switchPage();
     super.initState();
   }
 
-  Future<void> switchPage() async {
+  void switchPage() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
 
-    final String? session = prefs.getString("session");
+    final String? session = await prefs.getString("session");
+    print("*****************************************");
     print(session);
     if (session == null) {
-      home = Login();
+      setState(() {
+        home = Login();
+      });
     } else {
-      home = HomePage();
+      setState(() {
+        home = HomePage();
+      });
     }
   }
 
@@ -44,7 +50,7 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       initialBinding: InitialBindings(),
-      title: 'Flutter Demo',
+      title: 'BlogNaut',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         primarySwatch: Colors.blue,
