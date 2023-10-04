@@ -47,6 +47,8 @@ dependencies:
   get:
   zoom_tap_animation:
   like_button:
+  api_cache_manager:
+  cached_network_image:
 
 dev_dependencies:
   flutter_test:

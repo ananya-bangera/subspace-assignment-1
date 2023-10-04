@@ -9,7 +9,7 @@ import 'package:blog_naut/utils/theme.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:zoom_tap_animation/zoom_tap_animation.dart';
 import 'package:like_button/like_button.dart';
-
+import 'package:cached_network_image/cached_network_image.dart';
 import '../layouts/view_blog_page.dart';
 
 class BlogCard extends StatefulWidget {
@@ -45,7 +45,11 @@ class _BlogCardState extends State<BlogCard> {
                 // padding: const EdgeInsets.all(10.0),
                 decoration: BoxDecoration(
                     image: DecorationImage(
-                      image: NetworkImage(widget.post.img_url ?? ""),
+                      image: Image(
+                              image: CachedNetworkImageProvider(
+                                  widget.post.img_url ?? ""))
+                          .image,
+                      // ,
                       fit: BoxFit.cover,
                     ),
                     borderRadius: BorderRadius.only(
@@ -57,6 +61,13 @@ class _BlogCardState extends State<BlogCard> {
                     )),
                 child: Column(
                   children: [
+                    // CachedNetworkImage(
+                    //   imageUrl: widget.post.img_url ?? "",
+                    //   placeholder: (context, url) =>
+                    //       CircularProgressIndicator(),
+                    //   errorWidget: (context, url, error) => Icon(Icons.error),
+                    // ),
+
                     Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       crossAxisAlignment: CrossAxisAlignment.end,

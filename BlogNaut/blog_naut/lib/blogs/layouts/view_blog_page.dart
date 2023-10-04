@@ -1,5 +1,5 @@
 import 'dart:math';
-
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:blog_naut/blogs/models/blog_model.dart';
 import 'package:blog_naut/utils/theme.dart';
 import 'package:blog_naut/utils/theme.dart';
@@ -47,7 +47,10 @@ class _BlogPageState extends State<BlogPage> {
                     height: SubspaceTheme.getMobileHeight(context) / 4.5,
                     decoration: BoxDecoration(
                         image: DecorationImage(
-                          image: NetworkImage(widget.blogModel?.img_url ?? ""),
+                          image: Image(
+                                  image: CachedNetworkImageProvider(
+                                      widget.blogModel?.img_url ?? ""))
+                              .image,
                           fit: BoxFit.cover,
                         ),
                         borderRadius: BorderRadius.circular(50),
@@ -56,6 +59,7 @@ class _BlogPageState extends State<BlogPage> {
                         )),
                     child: Container()),
                 Container(
+                  margin: const EdgeInsets.all(10),
                   child: Text(widget.blogModel?.title ?? "",
                       style: SubspaceTheme.subtitleText(
                           size: SubspaceTheme.getMobileWidth(context) / 27,
