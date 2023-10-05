@@ -32,8 +32,7 @@ class _MyAppState extends State<MyApp> {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
 
     final String? session = await prefs.getString("session");
-    print("*****************************************");
-    print(session);
+
     if (session == null) {
       setState(() {
         home = Login();

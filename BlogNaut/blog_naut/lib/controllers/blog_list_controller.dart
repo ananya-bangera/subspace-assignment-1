@@ -8,11 +8,10 @@ class BlogListController extends GetxController {
   Future<void> addBlogToFav(String? id, BlogModel? blogModel) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.setBool(id ?? "", true);
-    print(prefs.getKeys());
+
     likedBlogsMap[id] = blogModel;
     blogModel?.is_liked = true;
-    // print("*******************************************");
-    // print(likedBlogsMap);
+
     update();
   }
 
@@ -24,13 +23,8 @@ class BlogListController extends GetxController {
 
   Future<void> removeBlogFromFav(String? id, BlogModel? blogModel) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    print(id);
-    prefs
-        .setBool(id ?? "", false)
-        .then((value) => prefs.getKeys().forEach((element) {
-              if (element != "session")
-                print(element + ":" + prefs.getBool(element).toString());
-            }));
+
+    await prefs.setBool(id ?? "", false);
     likedBlogsMap[id] = null;
     blogModel?.is_liked = false;
     update();

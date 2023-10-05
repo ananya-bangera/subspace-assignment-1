@@ -24,8 +24,7 @@ class BlogFetchService {
       if (response.statusCode != 200) {
         var cacheData = await APICacheManager().getCacheData("blog_data");
         if (!cacheExits) return [];
-        print(cacheData.syncData);
-        print("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%5");
+
         final parsed = await jsonDecode(cacheData.syncData)["blogs"]
             .cast<Map<String, dynamic>>();
         Set<String> savedBlogs = prefs.getKeys();
@@ -44,8 +43,7 @@ class BlogFetchService {
             key: "blog_data", syncData: response.body.toString());
         await APICacheManager().addCacheData(cacheDBModel);
         var cacheData = await APICacheManager().getCacheData("blog_data");
-        print(cacheData.syncData);
-        print("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%5");
+
         final parsed = await jsonDecode(response.body)["blogs"]
             .cast<Map<String, dynamic>>();
         Set<String> savedBlogs = prefs.getKeys();
@@ -66,8 +64,7 @@ class BlogFetchService {
             await APICacheManager().isAPICacheKeyExist("blog_data");
         var cacheData = await APICacheManager().getCacheData("blog_data");
         if (!cacheExits) return [];
-        print(cacheData.syncData);
-        print("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%5");
+
         final parsed = await jsonDecode(cacheData.syncData)["blogs"]
             .cast<Map<String, dynamic>>();
         Set<String> savedBlogs = prefs.getKeys();
