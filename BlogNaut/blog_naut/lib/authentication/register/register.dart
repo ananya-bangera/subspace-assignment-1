@@ -204,6 +204,7 @@ class _RegisterState extends State<Register> {
                           }
                           return null;
                         },
+                        obscureText: true,
                         cursorColor: SubspaceTheme.nearlyBlue,
                         style: SubspaceTheme.subtitleText(
                             size: SubspaceTheme.getMobileWidth(context) / 24,
