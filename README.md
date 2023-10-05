@@ -29,7 +29,7 @@ Create an engaging Flutter application called "Blog Explorer" that fetches and d
 
 ## 🔗Resources
 - [GitHub Repository](https://github.com/ananya-bangera/subspace-assignment-1)
-- [APK File](https://drive.google.com/drive/folders/17_rcEcp332EcuV5EV56v7NPeM7c8dvcp?usp=sharing)
+- [APK File](https://drive.google.com/drive/folders/1xyV0lfRIEGR_BX4bpBFAC2svu-oyw_-u?usp=sharing)
 - [Screenshots](https://drive.google.com/drive/folders/1_VFIJAuvyi6NdNTxIwyfWQ8DzSkLVSfV?usp=sharing)
 
 ## 🤖Tech-Stack
